@@ -17,17 +17,100 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
+This system recommends songs by comparing each song to a user’s music taste profile.
 
-Some prompts to answer:
+Each `Song` has features such as **genre, mood, energy, valence, danceability, tempo_bpm, and acousticness**. These features describe both the style and feel of the song.
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+The system builds a `UserProfile` using multiple liked songs. This profile represents the user’s overall taste and is used as the reference point for all comparisons.
 
-You can include a simple diagram or bullet list if helpful.
+---
+
+### Scoring System
+
+Each song is given a score based on how similar it is to the `UserProfile`.
+
+* Higher score = better match
+* Total score = weighted sum (weights = 1.0)
+
+---
+
+### Categorical Features
+
+These check for exact matches:
+
+* Genre → 1 if match, else 0 (**weight 0.40**)
+* Mood → 1 if match, else 0 (**weight 0.30**)
+
+---
+
+### Numerical Features
+
+These measure how close values are using:
+
+`similarity = 1 - |target - value| / range`
+
+* Energy → weight 0.10
+* Valence → weight 0.10
+* Danceability → weight 0.05
+* Tempo (BPM) → weight 0.03 (range ≈ 92)
+* Acousticness → weight 0.02
+
+---
+
+### Output
+
+All songs are scored and sorted from highest to lowest.
+The system recommends the top-scoring songs.
+
+
+
+## UserProfile Class
+
+Represents the user’s overall taste based on multiple liked songs.
+
+### Attributes
+
+* genre → most common genre (mode)
+* mood → most common mood (mode)
+* energy → average
+* valence → average
+* danceability → average
+* tempo_bpm → average
+* acousticness → average
+
+### Purpose
+
+* Acts as the reference for scoring
+* Combines multiple liked songs into one profile
+* Makes recommendations more accurate and stable
+
+## Song Class
+
+Represents a single song to evaluate.
+
+### Attributes
+
+* genre
+* mood
+* energy
+* valence
+* danceability
+* tempo_bpm
+* acousticness
+
+### Purpose
+
+* Compared against the `UserProfile`
+* Used to calculate similarity score
+* Ranked based on how well it matches the profile
+
+
+## Potential Biases
+
+* May **over-prioritize genre**, causing good matches in other genres to be ranked lower
+* Uses **exact mood matching**, which can ignore songs with similar vibes but different labels
+* Averaging in the `UserProfile` may **wash out unique or diverse preferences**
+* Relies on dataset labels, so **incorrect genre/mood tags can hurt recommendations**
 
 ---
 
