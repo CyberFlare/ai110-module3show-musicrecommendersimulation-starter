@@ -38,8 +38,8 @@ Each song is given a score based on how similar it is to the `UserProfile`.
 
 These check for exact matches:
 
-* Genre → 1 if match, else 0 (**weight 0.40**)
-* Mood → 1 if match, else 0 (**weight 0.30**)
+* Genre → 1 if match, else 0 (**weight 0.47**)
+* Mood → 1 if match, else 0 (**weight 0.25**)
 
 ---
 
@@ -50,7 +50,7 @@ These measure how close values are using:
 `similarity = 1 - |target - value| / range`
 
 * Energy → weight 0.10
-* Valence → weight 0.10
+* Valence → weight 0.08
 * Danceability → weight 0.05
 * Tempo (BPM) → weight 0.03 (range ≈ 92)
 * Acousticness → weight 0.02
@@ -113,6 +113,16 @@ Represents a single song to evaluate.
 * Relies on dataset labels, so **incorrect genre/mood tags can hurt recommendations**
 
 ---
+
+<img src="images/clitest.png" alt="CLI Test">
+
+<img src="images/test1.png" alt="Test 1">
+
+<img src="images/test2.png" alt="Test 2">
+
+<img src="images/test3.png" alt="Test 3">
+
+
 
 ## Getting Started
 

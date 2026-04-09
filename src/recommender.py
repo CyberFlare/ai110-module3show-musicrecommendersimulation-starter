@@ -75,15 +75,15 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     score = 0.0
     reasons = []
 
-    # Categorical: genre (weight 0.40)
+    # Categorical: genre (weight 0.47)
     if song.get('genre') == user_prefs.get('genre'):
-        score += 0.40
-        reasons.append("genre match (+0.40)")
+        score += 0.47
+        reasons.append("genre match (+0.47)")
 
-    # Categorical: mood (weight 0.30)
+    # Categorical: mood (weight 0.25)
     if song.get('mood') == user_prefs.get('mood'):
-        score += 0.30
-        reasons.append("mood match (+0.30)")
+        score += 0.25
+        reasons.append("mood match (+0.25)")
 
     # Numerical: similarity = 1 - |target - value| / range, clamped to [0, 1]
     def num_score(target, value, range_val, weight, label):
@@ -97,7 +97,7 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
         reasons.append(reason)
 
     if 'valence' in user_prefs:
-        pts, reason = num_score(user_prefs['valence'], song['valence'], 1.0, 0.10, "valence")
+        pts, reason = num_score(user_prefs['valence'], song['valence'], 1.0, 0.08, "valence")
         score += pts
         reasons.append(reason)
 

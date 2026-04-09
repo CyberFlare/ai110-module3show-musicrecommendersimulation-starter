@@ -70,6 +70,8 @@ Prompts:
 - Cases where the system overfits to one preference  
 - Ways the scoring might unintentionally favor some users  
 
+System unfairly favors songs that match the user profile's genre due to its high weighting. This prioritizes the genre over other factors. As a result, songs with different genres that still match the user's vibe will be ranked lower and overlooked, which might prevent exploration of new songs.
+
 ---
 
 ## 7. Evaluation  
